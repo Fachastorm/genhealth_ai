@@ -1,0 +1,6 @@
+fastapi[all]
+uvicorn
+python-decouple
+requests
+pytest
+httpx
