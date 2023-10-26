@@ -4,6 +4,14 @@ from app.main import app
 client = TestClient(app)
 
 def test_predict_endpoint():
+    """
+    Test the predict endpoint of the proxy API.
+    
+    This test sends a realistic patient history to the predict endpoint 
+    and checks that the response contains predictions from the GenHealth API.
+    """
+    
+    # Sample data for the test representing a patient's medical history.
     data = {
         "history": [
             {"code": "64", "system": "age", "display": "64"},
@@ -15,11 +23,23 @@ def test_predict_endpoint():
         "inference_threshold": 0.95,
         "inference_temperature": 0.95
     }
+    
+    # Send the request to the predict endpoint.
     response = client.post("/v1/predict", json=data)
+    
+    # Assert that the response status is 200 (OK) and contains predictions.
     assert response.status_code == 200
     assert "predictions" in response.json()
 
 def test_embeddings_endpoint():
+    """
+    Test the embeddings endpoint of the proxy API.
+    
+    This test sends a realistic patient history to the embeddings endpoint 
+    and checks that the response contains embeddings from the GenHealth API.
+    """
+    
+    # Sample data for the test representing a patient's medical history.
     data = {
         "history": [
             {"code": "64", "system": "age", "display": "64"},
@@ -27,6 +47,10 @@ def test_embeddings_endpoint():
             {"code": "E11.3551", "system": "ICD10CM", "display": "Type 2 diabetes mellitus with stable proliferative diabetic retinopathy, right eye"}
         ]
     }
+    
+    # Send the request to the embeddings endpoint.
     response = client.post("/v1/embeddings", json=data)
+    
+    # Assert that the response status is 200 (OK) and contains embeddings.
     assert response.status_code == 200
     assert "embedding" in response.json()
