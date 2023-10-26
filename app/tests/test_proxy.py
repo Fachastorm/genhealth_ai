@@ -1,7 +1,15 @@
+import os
 from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
+
+# Fetch the API key from the environment variables
+API_KEY = os.environ.get("GENHEALTH_API_TOKEN")
+
+headers = {
+    "Authorization": f"Token {API_KEY}"
+}
 
 def test_predict_endpoint():
     """
@@ -25,7 +33,7 @@ def test_predict_endpoint():
     }
     
     # Send the request to the predict endpoint.
-    response = client.post("/v1/predict", json=data)
+    response = client.post("/v1/predict", headers=headers, json=data)
     
     # Assert that the response status is 200 (OK) and contains predictions.
     assert response.status_code == 200
@@ -49,7 +57,7 @@ def test_embeddings_endpoint():
     }
     
     # Send the request to the embeddings endpoint.
-    response = client.post("/v1/embeddings", json=data)
+    response = client.post("/v1/embeddings", headers=headers, json=data)
     
     # Assert that the response status is 200 (OK) and contains embeddings.
     assert response.status_code == 200
