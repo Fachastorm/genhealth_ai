@@ -1,14 +1,16 @@
 import os
 from fastapi.testclient import TestClient
 from app.main import app
+from app.core.config import settings
 
 client = TestClient(app)
 
 # Fetch the API key from the environment variables
-API_KEY = os.environ.get("GENHEALTH_API_TOKEN")
+# API_KEY = os.environ.get("GENHEALTH_API_TOKEN")
 
 headers = {
-    "Authorization": f"Token {API_KEY}"
+    'Content-Type': 'application/json',
+    'Authorization': f"Token {settings.GENHEALTH_API_TOKEN}",
 }
 
 def test_predict_endpoint():
