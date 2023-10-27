@@ -1,37 +1,42 @@
-Testing the API
+# GenHealth Proxy API
 
-To ensure the functionality of the proxy API, we've included a set of unit tests. Follow the steps below to run the tests:
-Prerequisites:
+GenHealth Proxy API is a Python-based FastAPI application that serves as a proxy to forward requests to the GenHealth inference API.
 
-    Ensure you have Python installed. You can check by running:
+## Installation
 
-python --version
+Ensure you have Python installed on your system. Then, clone the repository and navigate to the project directory.
 
-Install the required packages:
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the necessary dependencies.
 
-pip install -r requirements.txt
+```bash
+pip install -r requirements.txt 
+```
 
-Load the environment variables from the .env file. If you're using a Unix-based system (like macOS or Linux), you can use:
+## Usage
 
+Set the environment variables. If you're using a Unix-based system (like macOS or Linux):
+
+```
 source .env
 
-If you're on Windows, use:
+# For Windows:
+set /p GENHEALTH_API_KEY=<.env
 
-    set /p GENHEALTH_API_KEY=<.env
+# Start the FastAPI server:
+uvicorn app.main:app --reload
 
-Running the tests:
+# Access the API documentation at:
+http://127.0.0.1:8000/docs
+```
 
-    Navigate to the root directory of the project.
+Use the endpoints /v1/predict and /v1/embeddings as per the provided documentation.
 
-    Run the tests using the following command:
+## Testing
 
+To run the tests, navigate to the root directory of the project and execute:
 
-    pytest app/tests/
+```
+pytest app/tests/
+```
 
-    This will execute all the tests inside the tests directory and display the results.
-
-Understanding the tests:
-
-    test_predict_endpoint: Tests the /v1/predict endpoint by sending a sample patient history and expects predictions from the GenHealth API in response.
-
-    test_embeddings_endpoint: Tests the /v1/embeddings endpoint by sending a sample patient history and expects embeddings from the GenHealth API in response.
+Please make sure to update tests as appropriate.
